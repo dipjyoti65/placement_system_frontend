@@ -4,14 +4,14 @@ class User {
   final String id;
   final String name;
   final String email;
-  // final String token;
+  final String token;
   final String password;
   final String role;
   User({
     required this.id,
     required this.name,
     required this.email,
-    // required this.token,
+    required this.token,
     required this.password,
     required this.role,
   });
@@ -20,7 +20,7 @@ class User {
     return {
       'name': name,
       'email': email,
-      // 'token': token,
+      'token': token,
       'password': password,
       'role': role
     };
@@ -31,7 +31,7 @@ class User {
       id: map['_id'] ?? '',
       name: map['name'] ?? '',
       email: map['email'] ?? '',
-      // token: map['token'] ?? '',
+      token: map['token'] ?? '',
       password: map['password'] ?? '',
       role : map['role'] ??'',
     );

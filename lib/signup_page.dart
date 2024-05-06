@@ -3,12 +3,34 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/providers/user_type_provider.dart';
 import 'package:placemnet_system_frontend/login_page.dart';
+import 'package:placemnet_system_frontend/services/auth_services.dart';
 import 'package:provider/provider.dart';
 
-class SignupPage extends StatelessWidget {
-  const SignupPage({Key? key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
+  @override
+  State<SignupPage> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController roleController = TextEditingController();
+  final AuthService authService = AuthService();
+
+  String _selectedUserType = "Student";
   final List<String> dropdownOptions = const ["Student", "Company"];
+
+  void singupUser() {
+    authService.singUpUser(
+        context: context,
+        name: nameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+        role: roleController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +76,12 @@ class SignupPage extends StatelessWidget {
                 Column(
                   children: [
                     TextField(
+                      controller: nameController,
                       style: const TextStyle(
                         color: creamyWhite,
                       ),
                       decoration: InputDecoration(
-                        hintText: "Username",
+                        hintText: "name",
                         hintStyle: TextStyle(
                           color: creamyWhite.withOpacity(0.5),
                         ),
@@ -80,7 +103,8 @@ class SignupPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     TextField(
-                      style: TextStyle(
+                      controller: emailController,
+                      style: const TextStyle(
                         color: creamyWhite,
                       ),
                       decoration: InputDecoration(
@@ -104,7 +128,8 @@ class SignupPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     TextField(
-                      style: TextStyle(
+                      controller: passwordController,
+                      style: const TextStyle(
                         color: creamyWhite,
                       ),
                       decoration: InputDecoration(
@@ -141,6 +166,10 @@ class SignupPage extends StatelessWidget {
                             value: userTypeProvider.userTypeValue,
                             onChanged: (String? newValue) {
                               userTypeProvider.userTypeValue = newValue!;
+                              setState(() {
+                                 _selectedUserType = newValue;
+                                roleController.text = newValue;
+                              });
                             },
                             items: dropdownOptions
                                 .map<DropdownMenuItem<String>>((String value) {
@@ -167,7 +196,7 @@ class SignupPage extends StatelessWidget {
                     ),
                     SizedBox(height: 20.h),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed:singupUser,
                       style: ElevatedButton.styleFrom(
                         shape: const StadiumBorder(),
                         backgroundColor: litBlue,

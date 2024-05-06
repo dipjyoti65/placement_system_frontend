@@ -12,4 +12,4 @@ const creamyWhite = Color(0xFFFFFFEC);
 double height = 800.h;
 double width = 360.w;
 
-const String appBaseUrl = "http://localhost:6003";
+// const String appBaseUrl = "http://localhost:6003";

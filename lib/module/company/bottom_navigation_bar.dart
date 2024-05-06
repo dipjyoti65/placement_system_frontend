@@ -11,9 +11,9 @@ import 'package:placemnet_system_frontend/module/company/student_list.dart';
 class NavBar extends StatelessWidget {
   NavBar({super.key});
 
-  List<Widget> pageList = const [
-    StudentList(),
-    CompnayDashborad(),
+  List<Widget> pageList = [
+    const StudentList(),
+    const CompnayDashboard(),
     AddNewJobs(),
   ];
 
@@ -21,7 +21,12 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TabIndexProvider>(
       builder: (context, tabIndexProvider, _) => ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+          bottomLeft: Radius.circular(0),
+          bottomRight: Radius.circular(0),
+        ),
         child: BottomNavigationBar(
           backgroundColor: secondaryBlue,
           showSelectedLabels: false,

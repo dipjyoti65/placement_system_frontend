@@ -5,6 +5,7 @@ import 'package:placemnet_system_frontend/module/admin/admin_dashboard.dart';
 import 'package:placemnet_system_frontend/module/company/company_dashborad.dart';
 import 'package:placemnet_system_frontend/module/student/student_dashboard.dart';
 import 'package:placemnet_system_frontend/providers/user_type_provider.dart';
+import 'package:placemnet_system_frontend/services/auth_services.dart';
 import 'package:placemnet_system_frontend/signup_page.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,20 @@ class _LoginPageState extends State<LoginPage> {
 
   final List<String> dropdownOptions = const ["Admin", "Student", "Company"];
   String _selectedUserType = "Student";
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController roleController = TextEditingController();
+  final AuthService authService = AuthService();
+
+   void loginUser() {
+    authService.signInUser(
+      context: context,
+      email: emailController.text,
+      password: passwordController.text,
+      role: roleController.text
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                 Column(
                   children: [
                     TextField(
+                      controller: emailController,
                       style: const TextStyle(
                         color: creamyWhite,
                       ),
@@ -88,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     SizedBox(height: 10.h),
                     TextField(
+                      controller: passwordController,
                       style: const TextStyle(
                         color: creamyWhite,
                       ),
@@ -127,7 +144,8 @@ class _LoginPageState extends State<LoginPage> {
                             onChanged: (String? newValue) {
                               userTypeProvider.userTypeValue = newValue!;
                               setState(() {
-                                _selectedUserType = newValue;
+                                  _selectedUserType = newValue;
+                                roleController.text = newValue;
                               });
                             },
                             items: dropdownOptions
@@ -155,38 +173,36 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     SizedBox(height: 20.h),
                     ElevatedButton(
-                      onPressed: () {
-                        print('$_selectedUserType');
-                        switch (_selectedUserType) {
-                          case 'Admin':
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AdminDashboard(),
-                              ),
-                            );
-                            break;
-                          case 'Student':
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const StudentDashboard()),
-                            );
-                            break;
-                          case 'Company':
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CompnayDashborad()),
-                            );
-                            break;
-                          default:
-                            // Handle other cases if needed
-                            break;
-                        }
-                      },
+                      onPressed: loginUser,
+                      // onPressed: () {
+                      //   print('$_selectedUserType');
+                      //   switch (_selectedUserType) {
+                      //     case 'Admin':
+                      //       Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //           builder: (context) => AdminDashboard(),
+                      //         ),
+                      //       );
+                      //       break;
+                      //     case 'Student':
+                      //       Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) =>
+                      //                 const StudentDashboard()),
+                      //       );
+                      //       break;
+                      //     case 'Company':
+                      //       Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) =>
+                      //                 const CompnayDashborad()),
+                      //       );
+                      //       break;
+                      //   }
+                      // },
                       style: ElevatedButton.styleFrom(
                         shape: const StadiumBorder(),
                         backgroundColor: litBlue,
@@ -197,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: (){},
                       child: const Text(
                         "Forget Password?",
                         style: TextStyle(fontSize: 12, color: primayBlue),

@@ -4,12 +4,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/custom_icons_icons.dart';
 import 'package:placemnet_system_frontend/module/company/bottom_navigation_bar.dart';
+import 'package:placemnet_system_frontend/providers/user_type_provider.dart';
+import 'package:provider/provider.dart';
 
-class CompnayDashborad extends StatelessWidget {
-  const CompnayDashborad({super.key});
+class CompnayDashboard extends StatelessWidget {
+  const CompnayDashboard({super.key});
 
+//   @override
+//   State<CompnayDashboard> createState() => _CompanyScreenState();
+// }
+
+// class _CompanyScreenState extends State<CompnayDashboard> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserTypeProvider>(context).user;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -31,7 +39,7 @@ class CompnayDashborad extends StatelessWidget {
                   ),
                   Container(
                     width: 100.w,
-                    height: 40.h,
+                    height: 30.h,
                     decoration: BoxDecoration(
                       color: secondaryBlue,
                       borderRadius: BorderRadius.circular(15),
@@ -42,7 +50,7 @@ class CompnayDashborad extends StatelessWidget {
                         style: TextStyle(
                           color: creamyWhite,
                           fontWeight: FontWeight.w600,
-                          fontSize: 16,
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -76,7 +84,7 @@ class CompnayDashborad extends StatelessWidget {
               height: 40.h,
             ),
             Container(
-              height: MediaQuery.of(context).size.height*0.6,
+              height: MediaQuery.of(context).size.height * 1,
               decoration: const BoxDecoration(
                 color: coolBlue,
                 borderRadius: BorderRadius.only(
@@ -94,7 +102,7 @@ class CompnayDashborad extends StatelessWidget {
                         trackVisibility: true,
                         child: SingleChildScrollView(
                           // flex: 1,
-            
+
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -103,10 +111,10 @@ class CompnayDashborad extends StatelessWidget {
                                   0: FlexColumnWidth(1.5),
                                   1: FlexColumnWidth(1.5),
                                 },
-                                children: const [
+                                children:  [
                                   TableRow(
                                     children: [
-                                      TableCell(
+                                      const TableCell(
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               vertical: 8.0),
@@ -120,17 +128,17 @@ class CompnayDashborad extends StatelessWidget {
                                       ),
                                       TableCell(
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Text(
-                                            'Xopuntech',
+                                            user.name,
                                             textAlign: TextAlign.left,
                                           ),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  TableRow(
+                                  const TableRow(
                                     children: [
                                       TableCell(
                                         child: Padding(
@@ -156,8 +164,7 @@ class CompnayDashborad extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-            
-                                  TableRow(
+                                  const TableRow(
                                     children: [
                                       TableCell(
                                         child: Padding(
@@ -183,10 +190,9 @@ class CompnayDashborad extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-            
                                   TableRow(
                                     children: [
-                                      TableCell(
+                                      const TableCell(
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               vertical: 8.0),
@@ -200,18 +206,17 @@ class CompnayDashborad extends StatelessWidget {
                                       ),
                                       TableCell(
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Text(
-                                            'xopuntech@gmail.com',
+                                            user.email,
                                             textAlign: TextAlign.left,
                                           ),
                                         ),
                                       ),
                                     ],
                                   ),
-            
-                                  TableRow(
+                                  const TableRow(
                                     children: [
                                       TableCell(
                                         child: Padding(
@@ -239,13 +244,11 @@ class CompnayDashborad extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            
                             ],
                           ),
                         ),
                       ),
                     ),
-                   
                   ],
                 ),
               ),
@@ -253,10 +256,7 @@ class CompnayDashborad extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        color: coolBlue,
-        child: NavBar()),
-      
+      bottomNavigationBar: Container(color: coolBlue, child: NavBar()),
     );
   }
 }

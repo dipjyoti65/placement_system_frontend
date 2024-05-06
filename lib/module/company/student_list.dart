@@ -10,25 +10,12 @@ class StudentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: 
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text("Student List"),
-             Container(
-                      width: double.infinity,
-                      height: 60.h,
-                      decoration: BoxDecoration(
-                        color: secondaryBlue,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: NavBar(),
-                     
-                    ),
-          ],
-        ),
-      
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+       
+      ),
+      bottomNavigationBar: Container(color: coolBlue, child: NavBar()),
     );
   }
 }
