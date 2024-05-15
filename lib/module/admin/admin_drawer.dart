@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:placemnet_system_frontend/module/admin/all_job_screen.dart';
 import 'package:provider/provider.dart';
 
 class AdminDrawer extends StatelessWidget {
- final GlobalKey<ScaffoldState> scaffoldKey;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   const AdminDrawer({Key? key, required this.scaffoldKey}) : super(key: key);
 
@@ -32,10 +33,19 @@ class AdminDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AllJobs()),
+              );
+            },
+            title: const Text("Pending Job Request"),
+          ),
+          ListTile(
+            onTap: () {
               // Navigate to Company Request or perform any action
               Navigator.pop(context); // Close the drawer
             },
-            title: const Text("Company Request"),
+            title: const Text("Approved Job"),
           ),
           ListTile(
             onTap: () {
@@ -49,5 +59,3 @@ class AdminDrawer extends StatelessWidget {
     );
   }
 }
-
-

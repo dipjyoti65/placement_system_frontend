@@ -16,8 +16,6 @@ class StudentDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserTypeProvider>(context).user;
-    print('user is : ${user}');
-    print('User email is : ${user.email}');
     return Scaffold(
         body: Column(
       crossAxisAlignment: CrossAxisAlignment.center,

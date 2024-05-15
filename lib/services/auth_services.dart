@@ -7,7 +7,7 @@ import 'package:placemnet_system_frontend/constants/utils.dart';
 import 'package:placemnet_system_frontend/module/admin/admin_dashboard.dart';
 import 'package:placemnet_system_frontend/module/company/company_dashborad.dart';
 import 'package:placemnet_system_frontend/module/student/student_dashboard.dart';
-import 'package:placemnet_system_frontend/module/userModels/user.dart';
+import 'package:placemnet_system_frontend/module/Models/user.dart';
 import 'package:placemnet_system_frontend/providers/user_type_provider.dart';
 import 'package:placemnet_system_frontend/signup_page.dart';
 import 'package:provider/provider.dart';
@@ -75,7 +75,8 @@ class AuthService {
         onSuccess: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           userProvider.setUser(res.body);
-          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+          String token = jsonDecode(res.body)['token'];
+          await prefs.setString('x-auth-token', token);
 
           // Switch-case to determine role and navigate to corresponding dashboard
           switch (role) {
@@ -108,10 +109,9 @@ class AuthService {
     }
   }
 
-
   void getUserData(
     BuildContext context,
-  )async{
+  ) async {
     try {
       var userProvider = Provider.of<UserTypeProvider>(context, listen: false);
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -134,7 +134,10 @@ class AuthService {
       if (response == true) {
         http.Response userRes = await http.get(
           Uri.parse('${DefaultUrl.uri}/'),
-          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'x-auth-token': token},
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token
+          },
         );
 
         userProvider.setUser(userRes.body);
@@ -155,4 +158,47 @@ class AuthService {
       (route) => false,
     );
   }
+}
+
+// Function to check token validity
+Future<bool> checkTokenValidity(String token) async {
+  try {
+    http.Response res = await http.get(
+        Uri.parse('${DefaultUrl.uri}/api/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token,
+        });
+    if (res.statusCode == 200) {
+      //Token is valid
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    print('Error checking token validity: $error ');
+    return false;
+  }
+}
+
+Future<Map<String, dynamic>> fetechUserDetails(
+  BuildContext context,  String email, String role) async {
+
+     var userProvider = Provider.of<UserTypeProvider>(context, listen: false);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+  
+    http.Response response = await http.get(
+      Uri.parse('${DefaultUrl.uri}/api/getUser?email=$email&role=$role'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> userDetails = jsonDecode(response.body);
+      userProvider.setUser(response.body);
+      return userDetails;
+    } else {
+      throw Exception('Failed to load user details');
+    }
 }

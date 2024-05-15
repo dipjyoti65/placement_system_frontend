@@ -4,18 +4,35 @@ import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/custom_icons_icons.dart';
 import 'package:placemnet_system_frontend/module/company/bottom_navigation_bar.dart';
 import 'package:placemnet_system_frontend/services/auth_services.dart';
+import 'package:placemnet_system_frontend/services/job_services.dart';
 import 'package:provider/provider.dart';
 
 import '../../custom__text_field.dart';
 
-class AddNewJobs extends StatelessWidget {
+class AddNewJobs extends StatefulWidget {
   AddNewJobs({super.key});
 
-  final TextEditingController _companyNameController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _websiteController = TextEditingController();
+  @override
+  State<AddNewJobs> createState() => _AddNewJobsState();
+}
+
+class _AddNewJobsState extends State<AddNewJobs>{
+
+  final TextEditingController _companyTitleController = TextEditingController();
+  final TextEditingController _experienceController = TextEditingController();
+  final TextEditingController _vacancyController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  // final TextEditingController _websiteController = TextEditingController();
+  final JobService jobService = JobService();
+
+  void addJob() {
+    jobService.addJob(
+        context: context,
+        title: _companyTitleController.text,
+        experience: _experienceController.text,
+        vacancy: _vacancyController.text,
+        description: _descriptionController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +74,7 @@ class AddNewJobs extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: addJob,
                     icon: const Icon(
                       CustomIcons.ok_circled,
                       size: 30,
@@ -105,7 +122,7 @@ class AddNewJobs extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Text(
-                                            'Company Name:',
+                                            'Title:',
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
@@ -120,7 +137,7 @@ class AddNewJobs extends StatelessWidget {
                                             height: 30.h,
                                             child: TextField(
                                               controller:
-                                                  _companyNameController,
+                                                  _companyTitleController,
                                               style: const TextStyle(
                                                 fontSize: 12,
                                               ),
@@ -146,7 +163,7 @@ class AddNewJobs extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Text(
-                                            'Address:',
+                                            'Experience:',
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
@@ -160,7 +177,7 @@ class AddNewJobs extends StatelessWidget {
                                           child: SizedBox(
                                             height: 30.h,
                                             child: TextField(
-                                              controller: _addressController,
+                                              controller: _experienceController,
                                               style: const TextStyle(
                                                 fontSize: 12,
                                               ),
@@ -186,7 +203,7 @@ class AddNewJobs extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Text(
-                                            'Phone:',
+                                            'Vacancy:',
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
@@ -200,7 +217,7 @@ class AddNewJobs extends StatelessWidget {
                                           child: SizedBox(
                                             height: 30.h,
                                             child: TextField(
-                                              controller: _phoneController,
+                                              controller: _vacancyController,
                                               style: const TextStyle(
                                                 fontSize: 12,
                                               ),
@@ -226,7 +243,7 @@ class AddNewJobs extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Text(
-                                            'Email:',
+                                            'Description:',
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
@@ -240,7 +257,8 @@ class AddNewJobs extends StatelessWidget {
                                           child: SizedBox(
                                             height: 30.h,
                                             child: TextField(
-                                              controller: _emailController,
+                                              controller:
+                                                  _descriptionController,
                                               style: const TextStyle(
                                                 fontSize: 12,
                                               ),
@@ -259,46 +277,46 @@ class AddNewJobs extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  TableRow(
-                                    children: [
-                                      const TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 8.0),
-                                          child: Text(
-                                            'Website:',
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 8.0),
-                                          child: Container(
-                                            height: 30.h,
-                                            child: TextField(
-                                              controller: _websiteController,
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                              ),
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  borderSide: const BorderSide(
-                                                    color: secondaryBlue,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  // TableRow(
+                                  //   children: [
+                                  //     const TableCell(
+                                  //       child: Padding(
+                                  //         padding: EdgeInsets.symmetric(
+                                  //             vertical: 8.0),
+                                  //         child: Text(
+                                  //           'Website:',
+                                  //           textAlign: TextAlign.left,
+                                  //           style: TextStyle(
+                                  //               fontWeight: FontWeight.bold),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     TableCell(
+                                  //       child: Padding(
+                                  //         padding: const EdgeInsets.symmetric(
+                                  //             vertical: 8.0),
+                                  //         child: Container(
+                                  //           height: 30.h,
+                                  //           child: TextField(
+                                  //             controller: _websiteController,
+                                  //             style: const TextStyle(
+                                  //               fontSize: 12,
+                                  //             ),
+                                  //             decoration: InputDecoration(
+                                  //               border: OutlineInputBorder(
+                                  //                 borderRadius:
+                                  //                     BorderRadius.circular(10),
+                                  //                 borderSide: const BorderSide(
+                                  //                   color: secondaryBlue,
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                             ],

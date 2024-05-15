@@ -37,7 +37,7 @@ class CompnayDashboard extends StatelessWidget {
                       size: 30,
                     ),
                   ),
-                  Container(
+                  Container(    
                     width: 100.w,
                     height: 30.h,
                     decoration: BoxDecoration(

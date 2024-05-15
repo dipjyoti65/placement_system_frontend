@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/module/admin/admin_drawer.dart';
 import 'package:placemnet_system_frontend/custom_icons_icons.dart';
+import 'package:placemnet_system_frontend/module/admin/all_job_screen.dart';
+import 'package:placemnet_system_frontend/module/company/add_new_jobs.dart';
 import 'package:provider/provider.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -15,7 +17,6 @@ class AdminDashboard extends StatefulWidget {
 class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
-
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: _scaffoldKey,
@@ -37,7 +38,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 children: [
                   IconButton(
                     onPressed: () {
-                     _scaffoldKey.currentState!.openDrawer();
+                      _scaffoldKey.currentState!.openDrawer();
                     },
                     icon: const Icon(
                       Icons.menu,
@@ -114,7 +115,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 SizedBox(height: 20.h),
                 GestureDetector(
                   onTap: () {
-                    print("The card 2 was clicked");
+                  
                   },
                   child: Card(
                     color: secondaryBlue,
@@ -230,7 +231,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
           ],
         ),
       ),
-      drawer: AdminDrawer(scaffoldKey: _scaffoldKey), 
+      drawer: AdminDrawer(scaffoldKey: _scaffoldKey),
     );
   }
 }

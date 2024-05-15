@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:placemnet_system_frontend/module/userModels/user.dart';
+import 'package:placemnet_system_frontend/module/Models/user.dart';
 
 class UserTypeProvider with ChangeNotifier {
   String _userType = "Student";

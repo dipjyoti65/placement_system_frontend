@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/login_page.dart';
+import 'package:placemnet_system_frontend/module/admin/pending_job_details_screen.dart';
 import 'package:placemnet_system_frontend/providers/tab_index_provider.dart';
 import 'package:placemnet_system_frontend/providers/user_type_provider.dart';
 import 'package:placemnet_system_frontend/services/auth_services.dart';
