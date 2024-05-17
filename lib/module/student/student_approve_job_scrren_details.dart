@@ -3,22 +3,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/custom_icons_icons.dart';
 import 'package:placemnet_system_frontend/module/Models/job_cart_item.dart';
-import 'package:placemnet_system_frontend/module/admin/all_job_screen.dart';
+import 'package:placemnet_system_frontend/module/admin/approved_job_screen.dart';
 import 'package:placemnet_system_frontend/services/job_services.dart';
 
-class PendinJobDetailsScreen extends StatefulWidget {
+class StudentApprovedJobDetails extends StatefulWidget {
   final JobCartItem jobCartItem;
-  const PendinJobDetailsScreen({super.key, required this.jobCartItem});
+  const StudentApprovedJobDetails({super.key, required this.jobCartItem});
 
   @override
-  State<PendinJobDetailsScreen> createState() => _PendinJobDetailsScreenState();
+  State<StudentApprovedJobDetails> createState() =>
+      StudentApprovedJobDetailsState();
 }
 
-class _PendinJobDetailsScreenState extends State<PendinJobDetailsScreen> {
+class StudentApprovedJobDetailsState extends State<StudentApprovedJobDetails> {
   final JobService jobService = JobService();
 
   void approveJob() {
     jobService.approveJob(context: context, jobId: widget.jobCartItem.jobid);
+  }
+
+  void applyJob() {
+    jobService.applyJob(
+        context: context, jobId: widget.jobCartItem.jobid);
   }
 
   @override
@@ -32,7 +38,7 @@ class _PendinJobDetailsScreenState extends State<PendinJobDetailsScreen> {
             IconButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AllJobs()));
+                    MaterialPageRoute(builder: (context) => ApprovedJobs()));
               },
               icon: const Icon(
                 CustomIcons.left_circle,
@@ -250,38 +256,23 @@ class _PendinJobDetailsScreenState extends State<PendinJobDetailsScreen> {
             SizedBox(
               height: 30.h,
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 25.w, right: 25.w, bottom: 10.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    style: const ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Colors.redAccent),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Reject",
-                      style: TextStyle(
-                        color: creamyWhite,
-                      ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(primayBlue),
+                  ),
+                  onPressed: applyJob,
+                  child: const Text(
+                    "Apply",
+                    style: TextStyle(
+                      color: creamyWhite,
+                      fontSize: 16,
                     ),
                   ),
-                  ElevatedButton(
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(primayBlue),
-                    ),
-                    onPressed: approveJob,
-                    child: const Text(
-                      "Accept",
-                      style: TextStyle(
-                        color: creamyWhite,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                ),
+              ],
             )
           ],
         ),

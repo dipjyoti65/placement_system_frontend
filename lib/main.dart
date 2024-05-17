@@ -52,24 +52,6 @@ class _MyAppState extends State<MyApp> {
         home: defaultHome,
         // home: Provider.of<UserTypeProvider>(context).user.token.isEmpty ? const SignupPage() : const StudentDashboard(),
       ),
-      // builder: (context, child) {
-      //   return MultiProvider(
-      //     providers: [
-      //       ChangeNotifierProvider(create: (_) => TabIndexProvider()),
-      //       ChangeNotifierProvider(create: (_) => UserTypeProvider()),
-      //       // Add DrawerStateProvider here
-      //     ],
-      //     child: MaterialApp(
-      //       debugShowCheckedModeBanner: false,
-      //       title: "Placement Management System",
-      //       theme: ThemeData(
-      //         fontFamily: "Inter",
-      //         iconTheme: const IconThemeData(color: litBlue),
-      //       ),
-      //       home: defaultHome,
-      //     ),
-      //   );
-      // },
     );
   }
 }

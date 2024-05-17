@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:placemnet_system_frontend/module/admin/all_job_screen.dart';
+import 'package:placemnet_system_frontend/module/admin/approved_job_screen.dart';
 import 'package:provider/provider.dart';
 
 class AdminDrawer extends StatelessWidget {
@@ -9,6 +10,7 @@ class AdminDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Drawer(
       child: ListView(
         children: [
@@ -42,8 +44,12 @@ class AdminDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              // Navigate to Company Request or perform any action
-              Navigator.pop(context); // Close the drawer
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => ApprovedJobs()),
+                ),
+              );
             },
             title: const Text("Approved Job"),
           ),
