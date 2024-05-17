@@ -16,8 +16,7 @@ class AddNewJobs extends StatefulWidget {
   State<AddNewJobs> createState() => _AddNewJobsState();
 }
 
-class _AddNewJobsState extends State<AddNewJobs>{
-
+class _AddNewJobsState extends State<AddNewJobs> {
   final TextEditingController _companyTitleController = TextEditingController();
   final TextEditingController _experienceController = TextEditingController();
   final TextEditingController _vacancyController = TextEditingController();
@@ -254,22 +253,29 @@ class _AddNewJobsState extends State<AddNewJobs>{
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 8.0),
-                                          child: SizedBox(
-                                            height: 30.h,
-                                            child: TextField(
-                                              controller:
-                                                  _descriptionController,
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                              ),
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  borderSide: const BorderSide(
-                                                    color: secondaryBlue,
+                                          child: SingleChildScrollView(
+                                            child: SizedBox(
+                                              height: 80.h,
+                                              child: TextField(
+                                                controller:
+                                                    _descriptionController,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                ),
+                                                decoration: InputDecoration(
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(10),
+                                                    borderSide: const BorderSide(
+                                                      color: secondaryBlue,
+                                                    ),
                                                   ),
                                                 ),
+                                                keyboardType:
+                                                    TextInputType.multiline,
+                                                maxLines:
+                                                    7, // This makes the TextField multiline
+                                                // minLines: 5,
                                               ),
                                             ),
                                           ),

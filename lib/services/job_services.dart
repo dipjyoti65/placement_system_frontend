@@ -57,7 +57,7 @@ class JobService {
             response: res,
             context: context,
             onSuccess: () {
-              showSnackBar(context, "Job created successfully");
+              showSnackBar(context,"Job created successfully");
             });
       }
     } catch (error) {
@@ -111,7 +111,7 @@ class JobService {
     );
 
     if (response.statusCode == 200) {
-      showSnackBar(context, "Job created successfully");
+      showSnackBar(context, "Job approve successfully");
     } else {
       // print('Failed to approve job: ${response.statusCode}');
       // print('Response body: ${response.body}');
@@ -156,7 +156,8 @@ class JobService {
           context: context,
           onSuccess: () {
             showSnackBar(context, "Job Applied Successfully");
-          });
+          },
+      );
     } catch (error) {
       showSnackBar(context, error.toString());
     }

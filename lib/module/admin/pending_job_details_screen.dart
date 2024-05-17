@@ -274,7 +274,7 @@ class _PendinJobDetailsScreenState extends State<PendinJobDetailsScreen> {
                     ),
                     onPressed: approveJob,
                     child: const Text(
-                      "Accept",
+                      "Approve",
                       style: TextStyle(
                         color: creamyWhite,
                       ),
