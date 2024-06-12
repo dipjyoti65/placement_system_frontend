@@ -11,7 +11,9 @@ class JobCartItem {
       required this.title,
       required this.experience,
       required this.vacancy,
-      required this.description});
+      required this.description
+   }  
+  );
 
   factory JobCartItem.fromJson(Map<String, dynamic> json) {
     return JobCartItem(

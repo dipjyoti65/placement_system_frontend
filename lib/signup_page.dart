@@ -20,7 +20,7 @@ class _SignupScreenState extends State<SignupPage> {
   final TextEditingController roleController = TextEditingController();
   final AuthService authService = AuthService();
 
-  String _selectedUserType = "Student";
+  // String _selectedUserType = "Student";
   final List<String> dropdownOptions = const ["Student", "Company"];
 
   void singupUser() {
@@ -34,6 +34,8 @@ class _SignupScreenState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    
     return ChangeNotifierProvider(
       create: (_) => UserTypeProvider(),
       child: Scaffold(
@@ -167,7 +169,7 @@ class _SignupScreenState extends State<SignupPage> {
                             onChanged: (String? newValue) {
                               userTypeProvider.userTypeValue = newValue!;
                               setState(() {
-                                 _selectedUserType = newValue;
+                                //  _selectedUserType = newValue;
                                 roleController.text = newValue;
                               });
                             },

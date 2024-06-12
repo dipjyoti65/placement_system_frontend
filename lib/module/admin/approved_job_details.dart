@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/custom_icons_icons.dart';
 import 'package:placemnet_system_frontend/module/Models/job_cart_item.dart';
-import 'package:placemnet_system_frontend/module/admin/all_job_screen.dart';
 import 'package:placemnet_system_frontend/module/admin/approved_job_screen.dart';
 import 'package:placemnet_system_frontend/services/job_services.dart';
 
@@ -239,7 +238,7 @@ class ApprovedJobDetailsScreenState extends State<ApprovedJobDetailsScreen> {
                                   textAlign: TextAlign.justify,
                                   style: const TextStyle(
                                       fontSize: 12, color: coolBlue),
-                                ))
+                            ))
                           ],
                         ),
                       )

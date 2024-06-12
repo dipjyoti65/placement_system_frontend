@@ -9,10 +9,11 @@ import 'package:placemnet_system_frontend/constants/utils.dart';
 import 'package:placemnet_system_frontend/module/Models/application.dart';
 import 'package:placemnet_system_frontend/module/Models/job.dart';
 import 'package:placemnet_system_frontend/module/Models/job_cart_item.dart';
-import 'package:placemnet_system_frontend/module/Models/user.dart';
+import 'package:placemnet_system_frontend/module/Models/student_details.dart';
 import 'package:placemnet_system_frontend/providers/user_type_provider.dart';
 import 'package:placemnet_system_frontend/services/auth_services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class JobService {
   void addJob({
@@ -57,40 +58,13 @@ class JobService {
             response: res,
             context: context,
             onSuccess: () {
-              showSnackBar(context,"Job created successfully");
+              showSnackBar(context, "Job created successfully");
             });
       }
     } catch (error) {
       showSnackBar(context, error.toString());
     }
   }
-
-  // Future<List<Job>> fetechAllJobs() async {
-  //   http.Response res =
-  //       await http.get(Uri.parse('${DefaultUrl.uri}/api/getAllJobs'));
-  //   if (res.statusCode == 200) {
-  //     final List<dynamic> responseData = json.decode(res.body);
-  //     return responseData.map((item) => Job.fromJson(item)).toList();
-  //   } else {
-  //     throw Exception('Failed to load Jobs');
-  //   }
-  // }
-
-  // Future<Map<String, dynamic>> fetchAllJobs() async {
-  //   http.Response response = await http.get(
-  //     Uri.parse('${DefaultUrl.uri}/api/getAllJobs'),
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //     },
-  //   );
-
-  //   if (response.statusCode == 200) {
-  //     Map<String, dynamic> jobDetails = jsonDecode(response.body);
-  //     return jobDetails;
-  //   } else {
-  //     throw Exception('Failed to load Jobs');
-  //   }
-  // }
 
   Future<List<JobCartItem>> fetchJobCartItems() async {
     final response = await http.get(
@@ -100,7 +74,39 @@ class JobService {
       final List<dynamic> responseData = json.decode(response.body);
       return responseData.map((item) => JobCartItem.fromJson(item)).toList();
     } else {
-      throw Exception('Failed to load cart items');
+      throw Exception('Failed to load Jobs');
+    }
+  }
+
+  //Fetch Approved job for each company
+  Future<List<JobCartItem>> fetchApprovedJobforCompany(
+      BuildContext context, String companyId) async {
+    http.Response response = await http.get(
+        Uri.parse(
+            '${DefaultUrl.uri}/getApprovedJobForCompany?companyId=$companyId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+    if (response.statusCode == 200) {
+      final List<dynamic> responseData = json.decode(response.body);
+      return responseData.map((item) => JobCartItem.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load approved Jobs');
+    }
+  }
+
+  //Fetch Student applied for a partcular job of a particular company
+  Future<List<StudentDetails>> fetchStudentList(String jobId) async {
+    final response = await http.get(
+      Uri.parse('${DefaultUrl.uri}/getAppliedStudent?jobId=$jobId'),
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      List<dynamic> applicants = data['applicantDetails'];
+      return applicants.map((item) => StudentDetails.fromJson(item)).toList();
+    } else {
+     throw Exception('Failed to load student list');
     }
   }
 
@@ -132,6 +138,25 @@ class JobService {
     }
   }
 
+  Future<List<dynamic>> getStudentAppliedJobs(
+      {required BuildContext context}) async {
+    var userProvider = Provider.of<UserTypeProvider>(context, listen: false);
+    String studentId = userProvider.user.id;
+
+    final response = await http.get(
+      Uri.parse(
+          '${DefaultUrl.uri}/student/getAppliedJobs?studentId=$studentId'),
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body)['appliedJobs'];
+    } else {
+      // throw Exception('Failed to load Applied Jobs');
+      print('Failed to fetch applied jobs: ${response.statusCode}');
+      return [];
+    }
+  }
+
   void applyJob({
     required BuildContext context,
     required String jobId,
@@ -152,11 +177,11 @@ class JobService {
       );
 
       httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            showSnackBar(context, "Job Applied Successfully");
-          },
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, "Job Applied Successfully");
+        },
       );
     } catch (error) {
       showSnackBar(context, error.toString());

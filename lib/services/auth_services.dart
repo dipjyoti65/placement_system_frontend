@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:placemnet_system_frontend/constants/default_url.dart';
 import 'package:placemnet_system_frontend/constants/utils.dart';
+import 'package:placemnet_system_frontend/login_page.dart';
 import 'package:placemnet_system_frontend/module/admin/admin_dashboard.dart';
 import 'package:placemnet_system_frontend/module/company/company_dashborad.dart';
 import 'package:placemnet_system_frontend/module/student/student_dashboard.dart';
@@ -108,6 +109,25 @@ class AuthService {
       showSnackBar(context, e.toString());
     }
   }
+
+void logoutUser({
+  required BuildContext context,
+ }) async {
+  try {
+    final navigator = Navigator.of(context);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('x-auth-token');
+
+    // Navigate to the login screen and clear the navigation stack
+    navigator.pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+      (route) => false,
+    );
+  } catch (e) {
+    showSnackBar(context, 'Logout failed: ${e.toString()}');
+  }
+}
+
 
   void getUserData(
     BuildContext context,

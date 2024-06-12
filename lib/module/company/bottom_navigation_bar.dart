@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:placemnet_system_frontend/module/company/approved_job_list.dart';
 import 'package:provider/provider.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/providers/tab_index_provider.dart';
 import 'package:placemnet_system_frontend/custom_icons_icons.dart';
 import 'package:placemnet_system_frontend/module/company/add_new_jobs.dart';
 import 'package:placemnet_system_frontend/module/company/company_dashborad.dart';
-import 'package:placemnet_system_frontend/module/company/student_list.dart';
+
 
 class NavBar extends StatelessWidget {
   NavBar({super.key});
 
   List<Widget> pageList = [
-    const StudentList(),
+    const ApprovedJobList(),
     const CompnayDashboard(),
     AddNewJobs(),
   ];
