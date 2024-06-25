@@ -66,6 +66,18 @@ class JobService {
     }
   }
 
+  Future deleteJob(BuildContext context, String jobId) async {
+    final response = await http.delete(
+      Uri.parse('${DefaultUrl.uri}/deleteJob?jobId=$jobId'),
+    );
+
+    if (response.statusCode == 204) {
+      showSnackBar(context, 'Job deleted successfully');
+    } else {
+      throw Exception('Failed to delete job');
+    }
+  }
+
   Future<List<JobCartItem>> fetchJobCartItems() async {
     final response = await http.get(
       Uri.parse('${DefaultUrl.uri}/api/getAllJobs'),
@@ -106,7 +118,7 @@ class JobService {
       List<dynamic> applicants = data['applicantDetails'];
       return applicants.map((item) => StudentDetails.fromJson(item)).toList();
     } else {
-     throw Exception('Failed to load student list');
+      throw Exception('Failed to load student list');
     }
   }
 

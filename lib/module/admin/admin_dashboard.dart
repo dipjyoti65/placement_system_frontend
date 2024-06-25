@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/module/admin/admin_drawer.dart';
 import 'package:placemnet_system_frontend/custom_icons_icons.dart';
-import 'package:placemnet_system_frontend/module/admin/all_job_screen.dart';
-import 'package:placemnet_system_frontend/module/company/add_new_jobs.dart';
-import 'package:provider/provider.dart';
+import 'package:placemnet_system_frontend/module/admin/admin_profile_screen.dart';
+import 'package:placemnet_system_frontend/module/admin/all_company_screen.dart';
+
+import 'package:placemnet_system_frontend/module/admin/all_selected_student.dart';
+import 'package:placemnet_system_frontend/module/admin/all_student_screen.dart';
 
 class AdminDashboard extends StatefulWidget {
-  AdminDashboard({Key? key}) : super(key: key);
+  const AdminDashboard({super.key});
 
   @override
   _AdminDashboardState createState() => _AdminDashboardState();
@@ -45,7 +47,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const AdminProfileScreen()));
+                    },
                     icon: const Icon(Icons.account_circle, size: 30),
                   )
                 ],
@@ -56,7 +64,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
               child: Column(children: [
                 GestureDetector(
                   onTap: () {
-                    print("The card 1 was clicked");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AllStudentData(),
+                      ),
+                    );
                   },
                   child: Card(
                     color: secondaryBlue,
@@ -115,7 +128,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 SizedBox(height: 20.h),
                 GestureDetector(
                   onTap: () {
-                  
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AllCompanyData(),
+                        ));
                   },
                   child: Card(
                     color: secondaryBlue,
@@ -173,6 +190,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 ),
                 SizedBox(height: 20.h),
                 GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AllSelectedStudent(),
+                      ),
+                    );
+                  },
                   child: Card(
                     color: secondaryBlue,
                     shape: RoundedRectangleBorder(

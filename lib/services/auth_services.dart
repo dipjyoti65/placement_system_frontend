@@ -7,6 +7,7 @@ import 'package:placemnet_system_frontend/constants/utils.dart';
 import 'package:placemnet_system_frontend/login_page.dart';
 import 'package:placemnet_system_frontend/module/admin/admin_dashboard.dart';
 import 'package:placemnet_system_frontend/module/company/company_dashborad.dart';
+import 'package:placemnet_system_frontend/module/student/student_Profile_Screen.dart';
 import 'package:placemnet_system_frontend/module/student/student_dashboard.dart';
 import 'package:placemnet_system_frontend/module/Models/user.dart';
 import 'package:placemnet_system_frontend/providers/user_type_provider.dart';
@@ -83,7 +84,7 @@ class AuthService {
           switch (role) {
             case 'Student':
               navigator.pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => StudentDashboard()),
+                MaterialPageRoute(builder: (context) =>  const StudentProfileScreen()),
                 (route) => false,
               );
               break;

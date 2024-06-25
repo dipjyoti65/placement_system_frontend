@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/module/Models/job_cart_item.dart';
 import 'package:placemnet_system_frontend/module/Models/student_details.dart';
+import 'package:placemnet_system_frontend/services/job_application_services.dart';
 import 'package:placemnet_system_frontend/services/job_services.dart';
 
 class AppliedStudentList extends StatefulWidget {
@@ -16,7 +17,7 @@ class AppliedStudentList extends StatefulWidget {
 class _AppliedStudentListState extends State<AppliedStudentList> {
   final JobService jobService = JobService();
   late Future<List<StudentDetails>> _studentList;
-
+  JobApplicationService jobApplicationService = JobApplicationService();
   @override
   void initState() {
     super.initState();
@@ -40,15 +41,15 @@ class _AppliedStudentListState extends State<AppliedStudentList> {
             } else if (snapShot.hasError) {
               return Center(child: Text('Error: ${snapShot.error}'));
             } else if (!snapShot.hasData || snapShot.data!.isEmpty) {
-              return Center(child: Text('No Student Found....'));
+              return Center(child: const Text('No Student Found....'));
             } else {
-              final cartIems = snapShot.data!;
+              final cartItems = snapShot.data!;
               return RefreshIndicator(
                 onRefresh: _refreshStudentList,
                 child: ListView.builder(
-                    itemCount: cartIems.length,
+                    itemCount: cartItems.length,
                     itemBuilder: (context, index) {
-                      StudentDetails studentDetails = cartIems[index];
+                      StudentDetails studentDetails = cartItems[index];
                       return Card(
                         margin: const EdgeInsets.all(20),
                         shape: RoundedRectangleBorder(
@@ -67,7 +68,39 @@ class _AppliedStudentListState extends State<AppliedStudentList> {
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: ListTile(
                               onTap: () {},
-                              title: Text(cartIems[index].name),
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(cartItems[index].name),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(Icons.check,
+                                            color: Colors.green),
+                                        onPressed: () {
+                                          jobApplicationService.approvedApplication(
+                                              context: context,
+                                              jobId: widget.jobCartItem.jobid,
+                                              studentId:
+                                                  cartItems[index].studentId);
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.close,
+                                            color: Colors.red),
+                                        onPressed: () {
+                                        jobApplicationService.rejectApplication(
+                                              context: context,
+                                              jobId: widget.jobCartItem.jobid,
+                                              studentId:
+                                                  cartItems[index].studentId);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                               titleTextStyle: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: secondaryBlue,

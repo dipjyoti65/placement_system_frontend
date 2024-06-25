@@ -260,7 +260,10 @@ class _PendinJobDetailsScreenState extends State<PendinJobDetailsScreen> {
                       backgroundColor:
                           MaterialStatePropertyAll(Colors.redAccent),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      jobService.deleteJob(context, widget.jobCartItem.jobid);
+                      AllJobs();
+                    },
                     child: const Text(
                       "Reject",
                       style: TextStyle(

@@ -59,8 +59,15 @@ class AllJobs extends StatelessWidget {
                           );
                         },
                         title: Text(cartItems[index].title),
-                        subtitle: Text(cartItems[index].experience),
-                        trailing: Text(cartItems[index].vacancy),
+                        subtitle: Row(
+                          children: [
+                            Text(cartItems[index].experience),
+                            SizedBox(width: 50.w,),
+                            Text(cartItems[index].vacancy),
+                          ],
+                        ),
+                        
+                        // trailing: Text(cartItems[index].vacancy),
                         titleTextStyle: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: secondaryBlue,

@@ -36,6 +36,9 @@ class StudentGetAppliedJobsState extends State<StudentGetAppliedJobs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("All Applied jobs"),
+      ),
       body: ListView.builder(
           itemCount: appliedJobs.length,
           itemBuilder: (context, index) {

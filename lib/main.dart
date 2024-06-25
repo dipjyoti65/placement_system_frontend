@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/login_page.dart';
+
+import 'package:placemnet_system_frontend/module/admin/image_picker.dart';
 import 'package:placemnet_system_frontend/providers/tab_index_provider.dart';
 import 'package:placemnet_system_frontend/providers/user_type_provider.dart';
 import 'package:placemnet_system_frontend/services/auth_services.dart';
@@ -49,6 +51,8 @@ class _MyAppState extends State<MyApp> {
           iconTheme: const IconThemeData(color: litBlue),
         ),
         home: defaultHome,
+        // home: PickImage()
+        // home:  EditAdminProfile ()
         // home: Provider.of<UserTypeProvider>(context).user.token.isEmpty ? const SignupPage() : const StudentDashboard(),
       ),
     );

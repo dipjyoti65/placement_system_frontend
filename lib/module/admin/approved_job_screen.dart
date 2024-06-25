@@ -63,7 +63,7 @@ class _ApprovedJobsState extends State<ApprovedJobs> {
                         borderRadius: BorderRadius.circular(18),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
                         child: ListTile(
                           onTap: () {
                             Navigator.push(
@@ -75,9 +75,36 @@ class _ApprovedJobsState extends State<ApprovedJobs> {
                               ),
                             );
                           },
-                          title: Text(cartItems[index].title),
-                          subtitle: Text(cartItems[index].experience),
-                          trailing: Text(cartItems[index].vacancy),
+                          title: Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 10,
+                            ),
+                            child: Text(cartItems[index].title),
+                          ),
+                          subtitle: Row(
+                            children: [
+                              const Text('Experience : '),
+                              // SizedBox(width: 10.w,),
+                              Text(cartItems[index].experience),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              const Text('Vacancy : '),
+                              // SizedBox(width:10.w),
+                              Text(cartItems[index].vacancy),
+                            ],
+                          ),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              jobService.deleteJob(
+                                  context, cartItems[index].jobid);
+                              _refreshJobs();
+                            },
+                            child: const Icon(
+                              Icons.delete,
+                              color: secondaryBlue,
+                            ),
+                          ),
                           titleTextStyle: const TextStyle(
                             fontWeight: FontWeight.w700,
                             color: secondaryBlue,

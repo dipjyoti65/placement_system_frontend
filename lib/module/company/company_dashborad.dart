@@ -4,21 +4,35 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:placemnet_system_frontend/constants/constants.dart';
 import 'package:placemnet_system_frontend/custom_icons_icons.dart';
 import 'package:placemnet_system_frontend/module/company/bottom_navigation_bar.dart';
+import 'package:placemnet_system_frontend/module/company/company_drawer.dart';
+import 'package:placemnet_system_frontend/module/company/edit_company_profile.dart';
 import 'package:placemnet_system_frontend/providers/user_type_provider.dart';
+import 'package:placemnet_system_frontend/services/auth_services.dart';
 import 'package:provider/provider.dart';
 
-class CompnayDashboard extends StatelessWidget {
+class CompnayDashboard extends StatefulWidget {
   const CompnayDashboard({super.key});
 
-//   @override
-//   State<CompnayDashboard> createState() => _CompanyScreenState();
-// }
+  @override
+  State<CompnayDashboard> createState() => _CompanyScreenState();
+}
 
-// class _CompanyScreenState extends State<CompnayDashboard> {
+class _CompanyScreenState extends State<CompnayDashboard> {
+  final AuthService authService = AuthService();
+
+  void logoutUser() {
+    authService.logoutUser(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
     final user = Provider.of<UserTypeProvider>(context).user;
     return Scaffold(
+      key: _globalKey,
+      drawer: CompanyDrawer(
+        globalKey: _globalKey,
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,13 +45,15 @@ class CompnayDashboard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _globalKey.currentState!.openDrawer();
+                    },
                     icon: const Icon(
                       Icons.menu,
                       size: 30,
                     ),
                   ),
-                  Container(    
+                  Container(
                     width: 100.w,
                     height: 30.h,
                     decoration: BoxDecoration(
@@ -56,7 +72,12 @@ class CompnayDashboard extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditCompanyProfile()));
+                    },
                     icon: const Icon(
                       CustomIcons.edit_1,
                       size: 30,
@@ -111,7 +132,7 @@ class CompnayDashboard extends StatelessWidget {
                                   0: FlexColumnWidth(1.5),
                                   1: FlexColumnWidth(1.5),
                                 },
-                                children:  [
+                                children: [
                                   TableRow(
                                     children: [
                                       const TableCell(
